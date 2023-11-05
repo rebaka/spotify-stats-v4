@@ -28,8 +28,6 @@ const generateRandomString = (length: number) => {
 }
 
 const stateKey = 'spotify_auth_state';
-const authorizationHeader = `Basic ${btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)}`;
-
 
 app.get('/', (req, res) => {
   res.send('Server for Spotify Stats running!');

@@ -4,12 +4,10 @@ import ProfileComponent from './Components/ProfileComponent.tsx';
 import './index.css';
 
 function App() {
-
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID; 
   const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET; 
   const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI; 
   const scopes = 'user-read-private user-read-email playlist-modify-public playlist-modify-private user-library-read';
-
   const [code, setCode] = useState("");
   const [showProfile, setShowProfile] = useState(false);
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -58,17 +56,19 @@ function App() {
       });
       const data = await response.json();
       setAccessToken(data.access_token);
+      setShowProfile(true);
       console.log('Access Token:', data.access_token);
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
+  //To get the access token and set it if it's already in URL otherwise get the code after authorizing app
   useEffect(() => {
     const params = new URLSearchParams(window.location.hash.slice(1));
-    const token = params.get('access_token');
-    if (token) {
-      setAccessToken(token);
+    const accessToken = params.get('access_token');
+    if (accessToken) {
+      setAccessToken(accessToken);
     } else {
       const params = new URLSearchParams(window.location.search);
       const code = params.get('code');
@@ -78,11 +78,21 @@ function App() {
     }
   }, []);
 
+  //Call to get access token
   useEffect(() => {
     if (code !== "") {
       getAccessToken(code);
     }
   }, [code]);
+
+  //Call to get user profile information
+  useEffect(() => {
+    if (accessToken) {
+      getMyProfile(accessToken);
+    }
+  }, [accessToken]);
+
+  const [profileData, setProfileData] = useState(null);
 
   const getMyProfile = async (accessToken) => {
     try {
@@ -93,7 +103,8 @@ function App() {
       });
       const data = await response.json();
       console.log('User Profile:', data);
-      return data; // This will contain information about the authenticated user
+      setProfileData(data);
+      // return data; 
     } catch (error) {
       console.error('Error:', error);
     }
@@ -104,9 +115,9 @@ function App() {
       <div className="text-3xl font-bold text-slate-400">
         SPOTIFY STATS
         <div>
-          <ButtonComponent onClick={handleClick} clientId={CLIENT_ID} clientSecret={CLIENT_SECRET} redirectUri={REDIRECT_URI}/>
+          <ButtonComponent onClick={handleClick} clientId={CLIENT_ID} clientSecret={CLIENT_SECRET} redirectUri={REDIRECT_URI} />
         </div>
-        {showProfile && <ProfileComponent/>}
+        {showProfile && <ProfileComponent profileData={profileData}/>}
       </div>
     </div>
   )
