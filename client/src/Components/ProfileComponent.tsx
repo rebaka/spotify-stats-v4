@@ -6,7 +6,7 @@ function ProfileComponent({profileData, topArtistsData, topTracksData}) {
     // const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET; 
 
     return (
-        <div className='flex flex-hor mt-4 items-center'>
+        <div className='flex flex-hor items-center' style={{ alignItems: 'flex-start' }}>
             {profileData && (
                 <div className='flex'>
                     <div className="mr-4">
@@ -16,7 +16,25 @@ function ProfileComponent({profileData, topArtistsData, topTracksData}) {
             )}
 
             <div className="bg-slate-700 h-[650px] w-[950px] rounded-lg mt-4 flex flex-col items-center">
-
+                {topArtistsData && (
+                <div className="flex mt-8">
+                    <div className="bg-slate-600 rounded-lg mt-8 p-3 mr-5">
+                        <h2 className="text-white p-2">TOP ARTISTS</h2>
+                        <ul>
+                            {topArtistsData.items.slice(0, 5).map((artist) => (
+                            <li key={artist.id} className="text-white flex items-center mb-2 text-base">
+                                <img
+                                src={artist.images[0]?.url || 'default-image-url'} 
+                                alt={artist.name} 
+                                className="h-8 w-8 rounded-full mr-2"
+                                />
+                                {artist.name}
+                            </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+                )}
             </div>
         </div>
 
