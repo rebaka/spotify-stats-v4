@@ -9,7 +9,7 @@ function UserProfileComponent({profileData}) {
                     </div>
                     <div>
                         <div className="ml-5 mt-8">
-                            <div className="text-white overflow-hidden whitespace-nowrap w-[200px]"> {profileData.display_name}</div>
+                            <div className="text-white whitespace-nowrap w-[200px] text-[1.5vw]"> {profileData.display_name}</div>
                             <div className="text-white text-xl"> {profileData.followers.total} followers</div>
                         </div>
                     </div>
