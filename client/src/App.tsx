@@ -13,6 +13,7 @@ function App() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [profileData, setProfileData] = useState(null);
   const [topArtistsData, setTopArtistsData] = useState(null);
+  const [topTracksData, setTopTracksData] = useState(null);
   const [buttonClicked, setButtonClicked] = useState(false);
 
   const generateRandomString = (length: number) => {
@@ -95,6 +96,7 @@ function App() {
     if (accessToken) {
       getMyProfile(accessToken);
       getTopArtists(accessToken);
+      getTopTracks(accessToken);
     }
   }, [accessToken]);
 
@@ -129,6 +131,21 @@ function App() {
     }
   }
 
+  const getTopTracks = async (accessToken) => {
+    try {
+      const response = await fetch('https://api.spotify.com/v1/me/top/tracks', {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+      const data = await response.json();
+      console.log('Top Tracks:', data);
+      setTopTracksData(data);
+    } catch(error) {
+      console.error('Error:', error);
+    }
+  }
+
   return (
     <div className="bg-slate-900 text-white min-h-screen flex justify-center items-center">
       <div className="text-3xl font-bold text-slate-400">
@@ -136,7 +153,7 @@ function App() {
         <div>
           {!buttonClicked && <ButtonComponent onClick={handleClick} clientId={CLIENT_ID} clientSecret={CLIENT_SECRET} redirectUri={REDIRECT_URI} />}
         </div>
-        {showProfile && <ProfileComponent profileData={profileData} topArtistsData={topArtistsData}/>}
+        {showProfile && <ProfileComponent profileData={profileData} topArtistsData={topArtistsData} topTracksData={topTracksData}/>}
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-function ProfileComponent({profileData, topArtistsData}) {
+function ProfileComponent({profileData, topArtistsData, topTracksData}) {
 
     // const CLIENT_ID  = process.env.REACT_APP_CLIENT_ID; 
     // const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET; 
@@ -20,7 +20,10 @@ function ProfileComponent({profileData, topArtistsData}) {
             ) : (
                 <div>Loading Profile data...</div>
             )}
-            <div className="bg-slate-600 rounded-lg mt-8 p-3">
+
+            {topArtistsData && (
+            <div className="flex mt-8">
+                <div className="bg-slate-600 rounded-lg mt-8 p-3 mr-5">
                 <h2 className="text-white p-2">TOP ARTISTS</h2>
                 <ul>
                     {topArtistsData.items.slice(0, 5).map((artist) => (
@@ -34,7 +37,26 @@ function ProfileComponent({profileData, topArtistsData}) {
                     </li>
                     ))}
                 </ul>
+                </div>
+
+                {/* Top Tracks */}
+                <div className="bg-slate-600 rounded-lg mt-8 p-3 mr-5">
+                <h2 className="text-white p-2">TOP TRACKS</h2>
+                <ul>
+                    {topTracksData.items.slice(0, 5).map((track) => (
+                    <li key={track.id} className="text-white flex items-center mb-2 text-base">
+                        <img
+                        src={track.album.images[0]?.url || 'default-image-url'} 
+                        alt={track.name} 
+                        className="h-8 w-8 object-cover mr-2"
+                        />
+                        {track.name}
+                    </li>
+                    ))}
+                </ul>
+                </div>
             </div>
+            )}
         </div>
     );
 };
