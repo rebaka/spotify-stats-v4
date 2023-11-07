@@ -7,10 +7,13 @@ function App() {
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID; 
   const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET; 
   const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI; 
-  const scopes = 'user-read-private user-read-email playlist-modify-public playlist-modify-private user-library-read';
+  const scopes = 'user-read-private user-read-email playlist-modify-public playlist-modify-private user-library-read user-top-read';
   const [code, setCode] = useState("");
   const [showProfile, setShowProfile] = useState(false);
   const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [profileData, setProfileData] = useState(null);
+  const [topArtistsData, setTopArtistsData] = useState(null);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const generateRandomString = (length: number) => {
     let text = ''; 
@@ -37,6 +40,8 @@ function App() {
   }
 
   const handleClick = async () => {
+    setButtonClicked(true);
+    console.log(buttonClicked);
     redirectToAuth();
   }
 
@@ -89,10 +94,9 @@ function App() {
   useEffect(() => {
     if (accessToken) {
       getMyProfile(accessToken);
+      getTopArtists(accessToken);
     }
   }, [accessToken]);
-
-  const [profileData, setProfileData] = useState(null);
 
   const getMyProfile = async (accessToken) => {
     try {
@@ -104,20 +108,35 @@ function App() {
       const data = await response.json();
       console.log('User Profile:', data);
       setProfileData(data);
-      // return data; 
     } catch (error) {
       console.error('Error:', error);
     }
   };
+
+  const getTopArtists = async (accessToken) => {
+    try {
+      const response = await fetch('https://api.spotify.com/v1/me/top/artists', {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+      const data = await response.json();
+      console.log('Top Artists:', data);
+      setTopArtistsData(data);
+      
+    } catch(error) {
+      console.error('Error:', error);
+    }
+  }
 
   return (
     <div className="bg-slate-900 text-white min-h-screen flex justify-center items-center">
       <div className="text-3xl font-bold text-slate-400">
         SPOTIFY STATS
         <div>
-          <ButtonComponent onClick={handleClick} clientId={CLIENT_ID} clientSecret={CLIENT_SECRET} redirectUri={REDIRECT_URI} />
+          {!buttonClicked && <ButtonComponent onClick={handleClick} clientId={CLIENT_ID} clientSecret={CLIENT_SECRET} redirectUri={REDIRECT_URI} />}
         </div>
-        {showProfile && <ProfileComponent profileData={profileData}/>}
+        {showProfile && <ProfileComponent profileData={profileData} topArtistsData={topArtistsData}/>}
       </div>
     </div>
   )
