@@ -18,13 +18,11 @@ function ProfileComponent({profileData, topArtistsData, topTracksData}) {
                 <h2 className="text-white p-2 mt-4">TOP ARTISTS</h2>
                 {topArtistsData && (
                 <div className="flex mt-4 mb-4 overflow-auto">
-                    {/* <div className="bg-slate-600 rounded-lg mt-8 p-3 mr-5"> */}
-                        <ul>
-                            {topArtistsData.items.slice(0, 20).map((artist) => (
-                                <TopArtistsComponent key={artist.id} topArtistsData={artist} />
-                            ))}
-                        </ul>
-                    {/* </div> */}
+                    <ul>
+                        {topArtistsData.items.slice(0, 20).map((artist) => (
+                            <TopArtistsComponent key={artist.id} topArtistsData={artist} />
+                        ))}
+                    </ul>
 
                     {/* <div className="bg-slate-600 rounded-lg mt-8 p-3 mr-5">
                         <h2 className="text-white p-2">TOP TRACKS</h2>
