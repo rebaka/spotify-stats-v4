@@ -24,13 +24,11 @@ function ProfileComponent({profileData, topArtistsData, topTracksData}) {
                         ))}
                     </ul> */}
 
-                    {/* <div className="bg-slate-600 rounded-lg mt-8 p-3 mr-5"> */}
-                        <ul>
-                            {topTracksData?.items?.slice(0, 20).map((track) => (
-                                <TopTracksComponent key={track.id} topTracksData={track}/>
-                            ))}
-                        </ul>
-                    {/* </div>  */}
+                    <ul>
+                        {topTracksData?.items?.slice(0, 20).map((track) => (
+                            <TopTracksComponent key={track.id} topTracksData={track}/>
+                        ))}
+                    </ul>
 
                     {/* <div className="bg-slate-600 rounded-lg mt-8 p-3 mr-5">
 
@@ -40,6 +38,9 @@ function ProfileComponent({profileData, topArtistsData, topTracksData}) {
                 </div>
                 )}
             </div>
+            
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Top Artists</button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Top Tracks</button>
         </div>
     );
 };
