@@ -42,8 +42,6 @@ function App() {
   }
 
   const handleClick = async () => {
-    // setButtonClicked(true);
-    // console.log(buttonClicked);
     redirectToAuth();
   }
 
