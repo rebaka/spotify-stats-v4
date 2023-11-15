@@ -2,8 +2,9 @@ import UserProfileComponent from './UserProfileComponent.tsx';
 import TopArtistsComponent from './TopArtistsComponent.tsx';
 import TopTracksComponent from './TopTracksComponent.tsx';
 import { useState } from 'react';
+import RecentlyPlayedComponent from './RecentlyPlayedComponent.tsx';
 
-function ProfileComponent({profileData, topArtistsData, topTracksData}) {
+function ProfileComponent({profileData, topArtistsData, topTracksData, recentlyPlayedData}) {
     const [displayMode, setDisplayMode] = useState('tracks');
 
     const handleButtonClick = (mode) => {
@@ -79,6 +80,19 @@ function ProfileComponent({profileData, topArtistsData, topTracksData}) {
                             </div>
                         </div>
                     )}
+
+                    {displayMode === 'recently-played' && recentlyPlayedData && (
+                        <div className='overflow-auto'>
+                            <h2 className='sticky top-0 z-10 bg-slate-700 p-2 text-center'>RECENTLY PLAYED</h2>
+                            <div className='relative' style={{ paddingTop: '0.45rem' }}>
+                                <ul>
+                                    {recentlyPlayedData.items.slice(0, 10).map((track) => (
+                                        <RecentlyPlayedComponent key={track.id} recentlyPlayedData={track} />
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    )}  
                 </div>
 
                 <div style={{ paddingBottom: '2rem' }}></div>

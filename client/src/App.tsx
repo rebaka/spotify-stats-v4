@@ -7,13 +7,14 @@ function App() {
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID; 
   const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET; 
   const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI; 
-  const scopes = 'user-read-private user-read-email playlist-modify-public playlist-modify-private user-library-read user-top-read';
+  const scopes = 'user-read-private user-read-email playlist-modify-public playlist-modify-private user-library-read user-top-read user-read-recently-played';
   const [code, setCode] = useState("");
   const [showProfile, setShowProfile] = useState(false);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [profileData, setProfileData] = useState(null);
   const [topArtistsData, setTopArtistsData] = useState(null);
   const [topTracksData, setTopTracksData] = useState(null);
+  const [recentlyPlayedData, setRecentlyPlayedData] = useState(null);
   const [buttonClicked, setButtonClicked] = useState(false);
 
   const generateRandomString = (length: number) => {
@@ -97,6 +98,7 @@ function App() {
       getMyProfile(accessToken);
       getTopArtists(accessToken);
       getTopTracks(accessToken);
+      getRecentlyPlayed(accessToken);
     }
   }, [accessToken]);
 
@@ -146,6 +148,21 @@ function App() {
     }
   }
 
+  const getRecentlyPlayed = async (accessToken) => {
+    try {
+      const response = await fetch('https://api.spotify.com/v1/me/player/recently-played', {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+      const data = await response.json();
+      console.log('Recently Played:', data);
+      setRecentlyPlayedData(data);
+    } catch(error) {
+      console.error('Error:', error);
+    }
+  }
+
   return (
     <div className='bg-slate-900 text-white min-h-screen flex justify-center items-center'>
       <div className='text-3xl font-bold text-slate-400'>
@@ -158,7 +175,7 @@ function App() {
         <div>
           {!accessToken && <ButtonComponent onClick={handleClick} clientId={CLIENT_ID} clientSecret={CLIENT_SECRET} redirectUri={REDIRECT_URI} />}
         </div>
-        {showProfile && <ProfileComponent profileData={profileData} topArtistsData={topArtistsData} topTracksData={topTracksData}/>}
+        {showProfile && <ProfileComponent profileData={profileData} topArtistsData={topArtistsData} topTracksData={topTracksData} recentlyPlayedData={recentlyPlayedData}/>}
         
       </div>
     </div>
