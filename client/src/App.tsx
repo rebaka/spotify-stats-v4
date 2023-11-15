@@ -147,9 +147,9 @@ function App() {
   }
 
   return (
-    <div className="bg-slate-900 text-white min-h-screen flex justify-center items-center">
-      <div className="text-3xl font-bold text-slate-400">
-        <header className="text-3xl font-bold text-white mb-4 mt-4 relative">
+    <div className='bg-slate-900 text-white min-h-screen flex justify-center items-center'>
+      <div className='text-3xl font-bold text-slate-400'>
+        <header className="fixed top-0 left-0 text-3xl font-bold text-white mb-4 mt-4 ml-8">
           SPOTIFY STATS
           <button className='fixed top-0 right-0 p-2 mb-4 mt-4 mr-8'>
             info
