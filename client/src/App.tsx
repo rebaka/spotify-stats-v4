@@ -41,8 +41,8 @@ function App() {
   }
 
   const handleClick = async () => {
-    setButtonClicked(true);
-    console.log(buttonClicked);
+    // setButtonClicked(true);
+    // console.log(buttonClicked);
     redirectToAuth();
   }
 
@@ -149,11 +149,17 @@ function App() {
   return (
     <div className="bg-slate-900 text-white min-h-screen flex justify-center items-center">
       <div className="text-3xl font-bold text-slate-400">
-        SPOTIFY STATS
+        <header className="text-3xl font-bold text-white mb-4 mt-4 relative">
+          SPOTIFY STATS
+          <button className='fixed top-0 right-0 p-2 mb-4 mt-4 mr-8'>
+            info
+          </button>
+        </header>
         <div>
-          {!buttonClicked && <ButtonComponent onClick={handleClick} clientId={CLIENT_ID} clientSecret={CLIENT_SECRET} redirectUri={REDIRECT_URI} />}
+          {!accessToken && <ButtonComponent onClick={handleClick} clientId={CLIENT_ID} clientSecret={CLIENT_SECRET} redirectUri={REDIRECT_URI} />}
         </div>
         {showProfile && <ProfileComponent profileData={profileData} topArtistsData={topArtistsData} topTracksData={topTracksData}/>}
+        
       </div>
     </div>
   )
