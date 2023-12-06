@@ -16,7 +16,7 @@ interface RecentlyPlayedComponent {
 function RecentlyPlayedComponent({recentlyPlayedData}: RecentlyPlayedComponent) {
     console.log('recentlyPlayedData:', recentlyPlayedData);
     return(
-        <div className='h-[130px] w-[900px] bg-black rounded-lg mb-4 p-4 ml-4 mr-4 flex items-center'>
+        <div className='h-[130px] w-[900px] bg-black rounded-lg mb-4 p-4 ml-4 mr-4 flex items-center z-40'>
             <img
                 src={recentlyPlayedData.track.album.images[0]?.url || 'default-image-url'} 
                 alt={recentlyPlayedData.track.name} 

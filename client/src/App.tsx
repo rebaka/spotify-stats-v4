@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ButtonComponent from './Components/ButtonComponent.tsx';
 import ProfileComponent from './Components/ProfileComponent.tsx';
 import './index.css';
+import InfoComponent from './Components/InfoComponent.tsx';
+import UseInfoComponent from './Components/UseInfoComponent.tsx';
 
 function App() {
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID; 
@@ -160,21 +162,31 @@ function App() {
       console.error('Error:', error);
     }
   }
+ 
+  const {isOpen, toggle} = UseInfoComponent();
 
   return (
+    
     <div className='bg-slate-900 text-white min-h-screen flex justify-center items-center'>
       <div className='text-3xl font-bold text-slate-400'>
         <header className="fixed top-0 left-0 text-3xl font-bold text-white mb-4 mt-4 ml-8">
           SPOTIFY STATS
-          <button className='fixed top-0 right-0 p-2 mb-4 mt-4 mr-8'>
+          <button className='fixed top-0 right-0 p-2 mb-4 mt-4 mr-8' onClick={toggle}>
             info
           </button>
+          {/* add modal here */}
+          
+
+
+
         </header>
+        <div style={{ position: 'relative', zIndex: 50 }}>
+          {isOpen && <InfoComponent isOpen={isOpen} onClose={toggle} />}
+        </div>
         <div>
           {!accessToken && <ButtonComponent onClick={handleClick} clientId={CLIENT_ID} clientSecret={CLIENT_SECRET} redirectUri={REDIRECT_URI} />}
         </div>
         {showProfile && <ProfileComponent profileData={profileData} topArtistsData={topArtistsData} topTracksData={topTracksData} recentlyPlayedData={recentlyPlayedData}/>}
-        
       </div>
     </div>
   )
