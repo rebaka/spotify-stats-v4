@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ButtonComponent from './Components/ButtonComponent.tsx';
 import ProfileComponent from './Components/ProfileComponent.tsx';
 import './index.css';
@@ -17,7 +17,6 @@ function App() {
   const [topArtistsData, setTopArtistsData] = useState(null);
   const [topTracksData, setTopTracksData] = useState(null);
   const [recentlyPlayedData, setRecentlyPlayedData] = useState(null);
-  const [buttonClicked, setButtonClicked] = useState(false);
 
   const generateRandomString = (length: number) => {
     let text = ''; 
@@ -170,15 +169,10 @@ function App() {
     <div className='bg-slate-900 text-white min-h-screen flex justify-center items-center'>
       <div className='text-3xl font-bold text-slate-400'>
         <header className="fixed top-0 left-0 text-3xl font-bold text-white mb-4 mt-4 ml-8">
-          SPOTIFY STATS
+          <span>SPOTIFY STATS</span>
           <button className='fixed top-0 right-0 p-2 mb-4 mt-4 mr-8' onClick={toggle}>
             info
           </button>
-          {/* add modal here */}
-          
-
-
-
         </header>
         <div style={{ position: 'relative', zIndex: 50 }}>
           {isOpen && <InfoComponent isOpen={isOpen} onClose={toggle} />}

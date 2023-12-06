@@ -1,5 +1,4 @@
 function UserProfileComponent({profileData}) {
-    // console.log(profileData);
     return(
         <div className="bg-slate-700 h-[180px] w-[450px] mt-4 rounded-lg flex justify-center items-center">
             {profileData ? (
