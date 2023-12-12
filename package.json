@@ -6,15 +6,16 @@
     "@mui/material": "^5.14.20",
     "tailwindcss": "^3.3.3"
   },
-  
   "scripts": {
     "install-client": "cd client && npm install",
     "build-client": "cd client && npm run build",
-    "start-client": "cd client && npm run start"
+    "start-client": "cd client && npm run start",
+    "clean": "rimraf dist"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/node": "^20.8.7",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "rimraf": "^5.0.5"
   }
 }
