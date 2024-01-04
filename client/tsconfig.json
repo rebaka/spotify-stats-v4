@@ -4,8 +4,10 @@
     "useDefineForClassFields": true,
     "noImplicitAny": false,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "types": ["node"],
-    "typeRoots": ["./node_modules/@types/", "./types"],
+    "types": [
+      "node"
+    ],
+
     "module": "ESNext",
     "skipLibCheck": true,
 
