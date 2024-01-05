@@ -14,7 +14,7 @@
   "scripts": {
     "install-client": "cd client && npm install",
     "build-client": "npm run build --prefix client",
-    "start-client": "cd client && npm run start",
+    "start-client": "npm run start --prefix client",
     "clean": "rimraf dist"
   },
   "devDependencies": {
