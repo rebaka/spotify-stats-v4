@@ -24,6 +24,7 @@ const InfoComponent: React.FC<InfoComponentProps> = ({ isOpen, onClose }) => {
                 <CloseIcon className='text-white' fontSize='large'/>
               </Button>
               <p className='text-2xl font-bold mb-4'>SPOTIFY STATS helps to keep track of your most played artists, tracks, and recently played songs. </p>
+              <p className='text-xl font-bold mb-4'>Since the free version to deploy the website on Render was used, it will take a couple minutes for things to load.</p>
               <p className='text-xl font-bold mb-4'>Check out the Github link below:</p>
               <a href={'https://github.com/rebaka/spotify-stats-v4'} target="_blank" rel="noopener noreferrer">
                 <Button>
