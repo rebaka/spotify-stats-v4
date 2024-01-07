@@ -48,18 +48,27 @@ function App() {
 
   const getAccessToken = async (code: string) => {
     try {
+      console.log('Redirect URI:', REDIRECT_URI);
+  
       const response = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': 'Basic ' + btoa(`${CLIENT_ID}:${CLIENT_SECRET}`),
         },
+        
         body: new URLSearchParams({
           grant_type: 'authorization_code',
           code: code,
           redirect_uri: REDIRECT_URI,
         }).toString(),
       });
+  
+      if (!response.ok) {
+        console.error('Error:', response.status, response.statusText);
+        return;
+      }
+  
       const data = await response.json();
       setAccessToken(data.access_token);
       setShowProfile(true);
