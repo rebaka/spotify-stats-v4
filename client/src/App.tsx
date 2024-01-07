@@ -8,7 +8,7 @@ import UseInfoComponent from './Components/UseInfoComponent.tsx';
 function App() {
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID; 
   const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET; 
-  const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI; 
+  const REDIRECT_URI = 'https://spotify-stats-5p0z.onrender.com/callback/'
   const scopes = 'user-read-private user-read-email playlist-modify-public playlist-modify-private user-library-read user-top-read user-read-recently-played';
   const [code, setCode] = useState("");
   const [showProfile, setShowProfile] = useState(false);
